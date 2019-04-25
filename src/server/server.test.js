@@ -16,10 +16,10 @@ describe("API Calls", function() {
     });
   });
 
-  describe("getting an existing user", function() {
-    it("returns a valid user wallet", function(done) {
+  describe("form definitions", function() {
+    it("returns a valid form definition for valid endpoint", function(done) {
       chai.request(server.listen())
-        .get("/api/getForm")
+        .get("/api/getFormDefinition/create_channel")
         .end(function(err, res) {
           expect(res).to.have.status(200);
           expect(res).to.be.json;

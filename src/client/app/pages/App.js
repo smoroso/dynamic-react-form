@@ -1,8 +1,8 @@
 "use strict";
 
 import React from "react";
-import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Forms from "pages/forms/containers/List";
 import Clock from "common/containers/Clock";
 import "pages/App.scss";
 
@@ -13,8 +13,7 @@ function App() {
         <Header />
 
         <Route exact path="/" component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/topics" component={Topics} />
+        <Route path="/forms" component={Forms} />
       </div>
     </Router>
   );
@@ -24,44 +23,6 @@ function Home() {
   return <h2><Clock/></h2>;
 }
 
-function About() {
-  return <h2>About</h2>;
-}
-
-function Topic({ match }) {
-  return <h3>Requested Param: {match.params.id}</h3>;
-}
-Topic.propTypes = {
-  match: PropTypes.object
-};
-
-function Topics({ match }) {
-  return (
-    <div>
-      <h2>Topics</h2>
-
-      <ul>
-        <li>
-          <Link to={`${match.url}/components`}>Components</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
-        </li>
-      </ul>
-
-      <Route path={`${match.path}/:id`} component={Topic} />
-      <Route
-        exact
-        path={match.path}
-        render={() => <h3>Please select a topic.</h3>}
-      />
-    </div>
-  );
-}
-Topics.propTypes = {
-  match: PropTypes.object
-};
-
 function Header() {
   return (
     <ul>
@@ -69,10 +30,7 @@ function Header() {
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/about">About</Link>
-      </li>
-      <li>
-        <Link to="/topics">Topics</Link>
+        <Link to="/forms">Forms</Link>
       </li>
     </ul>
   );
