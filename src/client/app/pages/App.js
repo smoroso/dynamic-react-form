@@ -2,7 +2,8 @@
 
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Forms from "pages/forms/containers/List";
+import DynamicFormsList from "pages/dynamic_form/containers/List";
+import StaticFormsList from "pages/static_form/containers/List";
 import Clock from "common/containers/Clock";
 import "pages/App.scss";
 
@@ -13,7 +14,8 @@ function App() {
         <Header />
 
         <Route exact path="/" component={Home} />
-        <Route path="/forms" component={Forms} />
+        <Route path="/static_form" component={StaticFormsList} />
+        <Route path="/dynamic_form" component={DynamicFormsList} />
       </div>
     </Router>
   );
@@ -30,7 +32,10 @@ function Header() {
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/forms">Forms</Link>
+        <Link to="/static_form">Static Form</Link>
+      </li>
+      <li>
+        <Link to="/dynamic_form">Dynamic Form</Link>
       </li>
     </ul>
   );

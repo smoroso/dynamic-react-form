@@ -1,32 +1,14 @@
 {
-    "currentSectionIndex": 0,
     "sections": [
-        {
-            "name": "section1",
-            "children": [
-                {
-                    "name": "dsadsa",
-                    "type": "email",
-                    "label": "",
-                    "rules": [
-                        {
-                            "isRequired": true
-                        }
-                    ]
-                },
-                {
-                    "name": "sub-section1",
-                    "type": "sub-section",
-                    "children": [
-                        {
-                            "name": "ewqewq",
-                            "type": "password"
-                        }
-                    ],
-                    "status": "Filled"
-                }
-            ],
-            "status": "Pristine"
-        }
+      {
+        "name": "Section 1",
+        "fields": [
+          {
+            "name": "firstName",
+            "label": "First Name",
+            "component": "input"
+          }
+        ]
+      }
     ]
-}
+  }

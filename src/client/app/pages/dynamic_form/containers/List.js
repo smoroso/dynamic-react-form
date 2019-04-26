@@ -3,7 +3,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Route, Link } from "react-router-dom";
-import Form from "pages/forms/containers/Form";
+import Form from "pages/dynamic_form/containers/Form";
 
 function List({ match }) {
   return (

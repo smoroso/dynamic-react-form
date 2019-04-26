@@ -24,9 +24,45 @@
                         }
                     ],
                     "status": "Filled"
+                },
+                {
+                    "placeholder": "Purpose of loan",
+                    "name": "name",
+                    "type": "dropdown",
+                    "required": true,
+                    "values": [
+                        "Home Loan",
+                        "Business Loan",
+                        "Working Capital",
+                        "Personal Loan"
+                    ]
+                },
+                {
+                    "placeholder": "Name",
+                    "name": "remaining_values",
+                    "type": "big_text"
+                },
+                {
+                    "placeholder": "Preferred time to call you",
+                    "name": "contact_time",
+                    "type": "text"
+                },
+                {
+                    "placeholder": "Password:",
+                    "name": "password",
+                    "type": "password"
+                },
+                {
+                    "placeholder": "Confirm:",
+                    "name": "confirmPassword",
+                    "type": "password",
+                    "rules": {
+                        "match": "password",
+                        "pattern": "[a-zA-Z]+"
+                    }
                 }
             ],
-            "status": "Pristine"
+            "state": "Invalid"
         }
     ]
 }
