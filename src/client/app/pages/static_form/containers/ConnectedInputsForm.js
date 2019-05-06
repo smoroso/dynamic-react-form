@@ -1,6 +1,7 @@
 "use strict";
 
 import React from "react";
+import styles from "pages/static_form/containers/form.scss";
 
 class BasicForm extends React.Component {
   constructor(props) {
@@ -41,11 +42,12 @@ class BasicForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className={styles.form}>
+        <p>If firstname or lastname is filled, the other one becomes required</p>
         <fieldset>
           <legend>Personal information:</legend>
           <label>
-            Firstname:
+            Firstname {!this.state.lastname && !this.state.firstname && "(Optional)"}:
             <input
               name="firstname"
               type="text"
@@ -54,7 +56,7 @@ class BasicForm extends React.Component {
               required={!!this.state.lastname} />
           </label>
           <label>
-            Lastname:
+            Lastname {!this.state.lastname && !this.state.firstname && "(Optional)"}:
             <input
               name="lastname"
               type="text"

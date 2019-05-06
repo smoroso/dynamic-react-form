@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { Route, Link } from "react-router-dom";
 import BasicForm from "pages/static_form/containers/BasicForm";
 import ConnectedInputsForm from "pages/static_form/containers/ConnectedInputsForm";
-import NestedForm from "pages/static_form/containers/BasicForm";
+import NestedForm from "pages/static_form/containers/nested_form";
 import NestedNestedForm from "pages/static_form/containers/BasicForm";
 import SavePendingForm from "pages/static_form/containers/BasicForm";
 import CssCustomizationForm from "pages/static_form/containers/BasicForm";
