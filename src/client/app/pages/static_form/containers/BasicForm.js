@@ -26,7 +26,8 @@ class BasicForm extends React.Component {
   }
 
   handleSubmit(event) {
-    alert("Your favorite flavor is: " + this.state.favFlavor);
+    // eslint-disable-next-line no-console
+    console.log(this.state);
     event.preventDefault();
   }
 

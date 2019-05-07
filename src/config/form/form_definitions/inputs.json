@@ -1,0 +1,93 @@
+{
+    "children": [
+        {
+            "name": "Button",
+            "label": "Button",
+            "type": "button"
+        },{
+            "name": "Checkbox",
+            "label": "Checkbox",
+            "type": "checkbox"
+        },{
+            "name": "Color",
+            "label": "Color",
+            "type": "color"
+        },{
+            "name": "Date",
+            "label": "Date",
+            "type": "date"
+        },{
+            "name": "DatetimeLocal",
+            "label": "DatetimeLocal",
+            "type": "datetime-local"
+        },{
+            "name": "Email",
+            "label": "Email",
+            "type": "email"
+        },{
+            "name": "File",
+            "label": "File",
+            "type": "file"
+        },{
+            "name": "Hidden",
+            "label": "Hidden",
+            "type": "hidden"
+        },{
+            "name": "Image",
+            "label": "Image",
+            "type": "image"
+        },{
+            "name": "Month",
+            "label": "Month",
+            "type": "month"
+        },{
+            "name": "Number",
+            "label": "Number",
+            "type": "number"
+        },{
+            "name": "Password",
+            "label": "Password",
+            "type": "password"
+        },{
+            "name": "Radio",
+            "label": "Radio",
+            "type": "radio"
+        },{
+            "name": "Range",
+            "label": "Range",
+            "type": "range"
+        },{
+            "name": "Reset",
+            "label": "Reset",
+            "type": "reset"
+        },{
+            "name": "Search",
+            "label": "Search",
+            "type": "search"
+        },{
+            "name": "Submit",
+            "label": "Submit",
+            "type": "submit"
+        },{
+            "name": "Tel",
+            "label": "Tel",
+            "type": "tel"
+        },{
+            "name": "Text",
+            "label": "Text",
+            "type": "text"
+        },{
+            "name": "Time",
+            "label": "Time",
+            "type": "time"
+        },{
+            "name": "Url",
+            "label": "Url",
+            "type": "url"
+        },{
+            "name": "Week",
+            "label": "Week",
+            "type": "week"
+        }
+    ]
+}

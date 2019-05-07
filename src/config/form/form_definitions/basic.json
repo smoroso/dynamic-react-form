@@ -1,0 +1,57 @@
+{
+    "children": [{
+            "name": "OrangeFan",
+            "label": "You like oranges",
+            "type": "checkbox"
+        },{
+            "name": "Date",
+            "label": "Date",
+            "type": "date"
+        },{
+            "name": "Email",
+            "label": "Email",
+            "type": "email"
+        },{
+            "name": "Text",
+            "label": "Text",
+            "type": "text"
+        },{
+            "name": "Gender",
+            "label": "Gender",
+            "type": "radio",
+            "values": [
+                {
+                    "label": "Male",
+                    "value": "male"
+                },
+                {
+                    "label": "Female",
+                    "value": "female"
+                },
+                {
+                    "label": "Other",
+                    "value": "other"
+                }
+            ]
+        },
+        {
+            "name": "FavCity",
+            "label": "Choose your favorite city",
+            "type": "select",
+            "values": [
+                {
+                    "label": "Washington DC",
+                    "value": "wdc"
+                },
+                {
+                    "label": "Berlin",
+                    "value": "berin"
+                },
+                {
+                    "label": "Krakow",
+                    "value": "krakow"
+                }
+            ]
+        }
+    ]
+}
