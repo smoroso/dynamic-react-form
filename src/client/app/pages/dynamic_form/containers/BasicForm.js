@@ -3,7 +3,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FormElement from "common/containers/FormElement";
-import {tap} from "common/utils";
+import {debounce, tap} from "common/utils";
 
 export default class BasicForm extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ export default class BasicForm extends React.Component {
       children: []
     };
 
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.validateAll = debounce(this.validateAll, 3000);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -27,6 +27,11 @@ export default class BasicForm extends React.Component {
       .then(data => this.setState(data.formDef));
   }
 
+  validateAll() {
+    // eslint-disable-next-line no-console
+    console.log("This method has a debounce");
+  }
+
   handleInputChange(childIndex, event) {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
@@ -34,7 +39,7 @@ export default class BasicForm extends React.Component {
     child.value = value;
     this.setState(prevState => ({
       children: tap(prevState.children, (children) => children.splice(childIndex, 1, child))
-    }));
+    }), this.validateAll);
   }
 
   handleSubmit(event) {

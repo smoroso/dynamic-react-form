@@ -24,7 +24,7 @@ class FormElement extends React.Component {
   render() {
     const comp = stringToComponentMapper[this.props.type];
     return (
-      comp(this.props)
+      comp({value: "", errors: [], ...this.props})
     );
   }
 }
