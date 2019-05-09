@@ -24,7 +24,7 @@ export default class InputsList extends React.Component {
     super(props);
 
     this.state = {
-      formDef: {}
+      children: []
     };
   }
 
@@ -35,17 +35,17 @@ export default class InputsList extends React.Component {
   fetchFormDefinition(formId) {
     return fetch(`/api/getFormDefinition/${formId}`)
       .then(res => res.json())
-      .then(data => this.setState({ formDef: data.formDef }));
+      .then(this.setState.bind(this));
   }
 
   render() {
-    const { formDef } = this.state;
+    const { children } = this.state;
     return (
       <div>
         <h3>List of input types</h3>
-        <div>{formDef && 
+        <div>{children.length && 
           <form>
-            <FormGenerator inputs={formDef.children}/>
+            <FormGenerator inputs={children}/>
           </form>
         }</div>
       </div>

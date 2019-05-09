@@ -23,6 +23,7 @@ class FormElement extends React.Component {
 
   render() {
     const comp = stringToComponentMapper[this.props.type];
+    // TODO: HOC for rendering the error messages for every input and maybe also the customProps for each input(child) def
     return (
       comp(this.props)
     );

@@ -17,7 +17,6 @@ const Input = props => (
         max={props.max}
       />
     </label>
-    {props.errors.length}
     <ul>
       {
         props.errors.map((err, index) =>
