@@ -12,13 +12,15 @@ export default class FormSection extends React.Component {
     super(props);
 
     const childrenWithCustomProps = this.addCustomProps(props.formChildren);
+    const originalChildrenWithCustomProps = JSON.parse(JSON.stringify(childrenWithCustomProps));
     this.state = {
       children: childrenWithCustomProps,
       status: props.status || PRISTINE_STATUS
     };
 
-    this.validateChildThenSection = debounce(this.validateChildThenSection.bind(this), 1000);
     this.handleSubmitClick = props.handleSubmitClick || this.handleSubmitClick.bind(this);
+    this.handleResetClick = this.handleResetClick.bind(this, originalChildrenWithCustomProps);
+    this.validateChildThenSection = debounce(this.validateChildThenSection.bind(this), 1000);
   }
 
   addCustomProps(children) {
@@ -48,8 +50,14 @@ export default class FormSection extends React.Component {
     const value = target.type === "checkbox" ? target.checked : target.value;
     const child = {...this.state.children[childIndex], value: value, status: VALIDATING_STATUS};
     this.setState(prevState => ({
-      children: tap(prevState.children, (children) => children.splice(childIndex, 1, child))
+      children: tap(prevState.children, (children) => children.splice(childIndex, 1, child)),
+      status: VALIDATING_STATUS
     }), this.validateChildThenSection.bind(this, childIndex, child));
+  }
+
+  handleResetClick(originalChildrenWithCustomProps, event) {
+    this.setState({children: originalChildrenWithCustomProps, status: PRISTINE_STATUS});
+    event.preventDefault();
   }
 
   handleSubmitClick(event) {
@@ -68,8 +76,8 @@ export default class FormSection extends React.Component {
             {children.map((child, index) => (
               <FormElement key={index} handleInputChange={this.handleInputChange.bind(this, index)} {...child} />
             ))}
-            {/* TODO: Cancel button */}
-            <button type="submit" value="Submit" disabled={status !== VALID_STATUS} onClick={this.handleSubmitClick}>Submit</button>
+            <button type="button" value="Reset" disabled={![VALID_STATUS, INVALID_STATUS].includes(status)} onClick={this.handleResetClick}>Reset</button>
+            <button type="button" value="Submit" disabled={status !== VALID_STATUS} onClick={this.handleSubmitClick}>Submit</button>
             {
               status == VALIDATING_STATUS && 
               <span>Validation in progress...</span>
