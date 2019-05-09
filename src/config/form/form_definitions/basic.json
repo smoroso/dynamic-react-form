@@ -14,7 +14,11 @@
         },{
             "name": "Text",
             "label": "Text",
-            "type": "text"
+            "type": "text",
+            "rules": [
+                {"required": true},
+                {"pattern": "^[A-Za-z0-9_-]+$"}
+            ]
         },{
             "name": "Gender",
             "label": "Gender",
