@@ -18,6 +18,13 @@ const Input = props => (
       />
     </label>
     {props.errors.length}
+    <ul>
+      {
+        props.errors.map((err, index) =>
+          <li key={index}>{err}</li>
+        )
+      }
+    </ul>
   </div>
 );
 

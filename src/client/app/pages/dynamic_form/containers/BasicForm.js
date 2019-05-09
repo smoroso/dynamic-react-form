@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import FormElement from "common/containers/FormElement";
 import {debounce, tap} from "common/utils";
 import {validateForRule} from "common/validations";
-import {PRISTINE_STATUS, VALID_STATUS, VALIDATING_STATUS} from "common/constants";
+import {INVALID_STATUS, PRISTINE_STATUS, VALID_STATUS, VALIDATING_STATUS } from "common/constants";
 
 export default class BasicForm extends React.Component {
   constructor(props) {
@@ -16,7 +16,7 @@ export default class BasicForm extends React.Component {
       status: PRISTINE_STATUS
     };
 
-    this.validateAll = debounce(this.validateAll.bind(this), 3000);
+    this.validateChildThenSection = debounce(this.validateChildThenSection.bind(this), 1000);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -27,7 +27,7 @@ export default class BasicForm extends React.Component {
   addCustomProps(data) {
     return {
       children: data.formDef.children.map((c) => {
-        return {value: "", errors: [], rules: [], status: "pristine", ...c};
+        return {value: "", errors: [], rules: [], status: PRISTINE_STATUS, ...c};
       })
     };
   }
@@ -39,23 +39,20 @@ export default class BasicForm extends React.Component {
       .then(this.setState.bind(this));
   }
 
-  validateAll() {
-    // TODO: should only validate the child, then after promise:
-    // validate the section by checking each child errors length => update status and therefore submit button
-    // eslint-disable-next-line no-console
-    console.log("This method has a debounce");
-    const updatedChildren = this.state.children
-      .map((child) => JSON.parse(JSON.stringify(child)))
-      .map((child) => {
-        child.errors = child.rules
-          .map((rule) => validateForRule(child, rule))
-          .filter((err) => err != null);
-        return child;
-      });
-    // eslint-disable-next-line no-console
-    console.log(updatedChildren);
-    
-    this.setState({children: updatedChildren, status: VALID_STATUS});
+  validateChildThenSection(childIndex, child) {
+    // TODO: Make it asynchronous?
+    const childClone = JSON.parse(JSON.stringify(child));
+    childClone.errors = childClone.rules
+      .map((rule) => validateForRule(childClone, rule))
+      .filter((err) => err != null);
+
+    childClone.status = childClone.errors.length === 0 ? VALID_STATUS : INVALID_STATUS;
+    const newStatus = [...this.state.children, childClone].every((child) => child.errors.length === 0) ? VALID_STATUS : INVALID_STATUS;
+
+    this.setState(prevState => ({
+      children: tap(prevState.children, (children) => children.splice(childIndex, 1, childClone)),
+      status: newStatus
+    }));
   }
 
   handleInputChange(childIndex, event) {
@@ -63,9 +60,8 @@ export default class BasicForm extends React.Component {
     const value = target.type === "checkbox" ? target.checked : target.value;
     const child = {...this.state.children[childIndex], value: value, status: VALIDATING_STATUS};
     this.setState(prevState => ({
-      children: tap(prevState.children, (children) => children.splice(childIndex, 1, child)),
-      status: VALIDATING_STATUS
-    }), this.validateAll);
+      children: tap(prevState.children, (children) => children.splice(childIndex, 1, child))
+    }), this.validateChildThenSection.bind(this, childIndex, child));
   }
 
   handleSubmit(event) {
@@ -80,16 +76,17 @@ export default class BasicForm extends React.Component {
       <div>
         <h3>List of input types</h3>
         <div>{children.length && 
-          <form onSubmit={this.handleSubmit}>
+          <div>
             {children.map((child, index) => (
               <FormElement key={index} handleInputChange={this.handleInputChange.bind(this, index)} {...child} />
             ))}
-            <input type="submit" value="Submit" disabled={status !== VALID_STATUS} />
+            {/* TODO: Cancel button */}
+            <button type="submit" value="Submit" disabled={status !== VALID_STATUS} onClick={this.handleSubmit}>Submit</button>
             {
               status == VALIDATING_STATUS && 
               <span>Validation in progress...</span>
             }
-          </form>
+          </div>
         }</div>
       </div>
     );
