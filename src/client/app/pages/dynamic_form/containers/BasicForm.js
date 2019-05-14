@@ -3,6 +3,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FormSection from "common/containers/FormSection";
+import {fetchFormDefinition} from "common/services/fetcherService";
+import {decorateChildDef} from "common/services/decoratorService";
 
 export default class BasicForm extends React.Component {
   constructor(props) {
@@ -11,16 +13,13 @@ export default class BasicForm extends React.Component {
     this.state = {
       children: []
     };
-    this.handleSubmitClick = this.handleSubmitClick.bind(this);
   }
 
   componentDidMount() {
-    return this.fetchFormDefinition("basic");
-  }
-
-  fetchFormDefinition(formId) {
-    return fetch(`/api/getFormDefinition/${formId}`)
-      .then(res => res.json())
+    return fetchFormDefinition("basic")
+      .then((formDef) => {
+        return {children: formDef.children.map(decorateChildDef)};
+      })
       .then(this.setState.bind(this));
   }
 
@@ -34,7 +33,15 @@ export default class BasicForm extends React.Component {
     const {children} = this.state;
     return (
       <div>
-        {children.length && <FormSection formChildren={children} handleSubmitClick={this.handleSubmitClick} />}
+        {
+          children.length && 
+          <FormSection
+            formChildren={children}
+            handleSubmitClick={this.handleSubmitClick}
+            step={0}
+            stepsNumber={1}
+          />
+        }
       </div>
     );
   }

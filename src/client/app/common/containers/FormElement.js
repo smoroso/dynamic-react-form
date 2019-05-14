@@ -7,14 +7,18 @@ import Input from "common/components/form_elements/Input";
 import Radio from "common/components/form_elements/Radio";
 import Select from "common/components/form_elements/Select";
 
-const stringToComponentMapper = {
-  checkbox: Input,
-  date: Input,
-  email: Input,
-  text: Input,
-  radio: Radio,
-  select: Select
+const stringToComponentMapper = () => {
+  return {
+    checkbox: Input,
+    date: Input,
+    email: Input,
+    text: Input,
+    radio: Radio,
+    select: Select
+  };
 };
+
+const stringToComponentObj = stringToComponentMapper();
 
 class FormElement extends React.Component {
   constructor(props) {
@@ -22,7 +26,7 @@ class FormElement extends React.Component {
   }
 
   render() {
-    const comp = stringToComponentMapper[this.props.type];
+    const comp = stringToComponentObj[this.props.type];
     // TODO: HOC for rendering the error messages for every input and maybe also the customProps for each input(child) def
     return (
       comp(this.props)

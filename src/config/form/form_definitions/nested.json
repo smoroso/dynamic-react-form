@@ -1,0 +1,75 @@
+{
+    "steps": [{
+        "name": "first_step",
+        "label": "First Step",
+        "children": [{
+            "name": "OrangeFan",
+            "label": "You like oranges",
+            "type": "checkbox"
+        },{
+            "name": "Date",
+            "label": "Date",
+            "type": "date"
+        },{
+            "name": "Email",
+            "label": "Email",
+            "type": "email"
+        },{
+            "name": "Text",
+            "label": "Text",
+            "type": "text",
+            "rules": [
+                {"required": true},
+                {"pattern": "^[A-Za-z0-9_-]+$"}
+            ]
+        },{
+            "name": "Gender",
+            "label": "Gender",
+            "type": "radio",
+            "values": [
+                {
+                    "label": "Male",
+                    "value": "male"
+                },
+                {
+                    "label": "Female",
+                    "value": "female"
+                },
+                {
+                    "label": "Other",
+                    "value": "other"
+                }
+            ]
+        },
+        {
+            "name": "FavCity",
+            "label": "Choose your favorite city",
+            "type": "select",
+            "values": [
+                {
+                    "label": "Washington DC",
+                    "value": "wdc"
+                },
+                {
+                    "label": "Berlin",
+                    "value": "berlin"
+                },
+                {
+                    "label": "Krakow",
+                    "value": "krakow"
+                }
+            ]
+        }]
+    },{
+        "name": "second_step",
+        "label": "Second Step",
+        "children": [{
+            "name": "Email",
+            "label": "Email",
+            "type": "email",
+            "rules": {
+                "required": true
+            }
+        }]
+    }]
+}

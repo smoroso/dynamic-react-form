@@ -11,22 +11,18 @@ export default class FormSection extends React.Component {
   constructor(props) {
     super(props);
 
-    const childrenWithCustomProps = this.addCustomProps(props.formChildren);
-    const originalChildrenWithCustomProps = JSON.parse(JSON.stringify(childrenWithCustomProps));
+    const originalChildren = JSON.parse(JSON.stringify(props.formChildren));
     this.state = {
-      children: childrenWithCustomProps,
+      children: originalChildren,
       status: props.status || PRISTINE_STATUS
     };
 
-    this.handleSubmitClick = props.handleSubmitClick || this.handleSubmitClick.bind(this);
-    this.handleResetClick = this.handleResetClick.bind(this, originalChildrenWithCustomProps);
+    this.handleInputChange = (props.handleInputChange && props.handleInputChange.bind(this)) || this.handleInputChange.bind(this);
+    this.handleBackClick = props.handleBackClick && props.handleBackClick.bind(this);
+    this.handleNextClick = props.handleNextClick && props.handleNextClick.bind(this);
+    this.handleResetClick = this.handleResetClick.bind(this, JSON.parse(JSON.stringify(originalChildren)));
+    this.handleSubmitClick = (props.handleSubmitClick && props.handleSubmitClick.bind(this)) || this.handleSubmitClick.bind(this);
     this.validateChildThenSection = debounce(this.validateChildThenSection.bind(this), 1000);
-  }
-
-  addCustomProps(children) {
-    return children.map((c) => {
-      return {value: "", errors: [], rules: [], status: PRISTINE_STATUS, ...c};
-    });
   }
 
   validateChildThenSection(childIndex, child) {
@@ -55,8 +51,8 @@ export default class FormSection extends React.Component {
     }), this.validateChildThenSection.bind(this, childIndex, child));
   }
 
-  handleResetClick(originalChildrenWithCustomProps, event) {
-    this.setState({children: originalChildrenWithCustomProps, status: PRISTINE_STATUS});
+  handleResetClick(originalChildren, event) {
+    this.setState({children: originalChildren, status: PRISTINE_STATUS});
     event.preventDefault();
   }
 
@@ -68,6 +64,11 @@ export default class FormSection extends React.Component {
 
   render() {
     const { children, status } = this.state;
+    const {step, stepsNumber} = this.props;
+
+    const nextOrSubmitName = step === (stepsNumber - 1) ? "Submit" : "Name";
+    const nextOrSubmitFn = step === (stepsNumber - 1) ? this.handleSubmitClick : this.handleNextClick;
+
     return (
       <div>
         <h3>List of input types</h3>
@@ -77,11 +78,13 @@ export default class FormSection extends React.Component {
               <FormElement key={index} handleInputChange={this.handleInputChange.bind(this, index)} {...child} />
             ))}
             <button type="button" value="Reset" disabled={![VALID_STATUS, INVALID_STATUS].includes(status)} onClick={this.handleResetClick}>Reset</button>
-            <button type="button" value="Submit" disabled={status !== VALID_STATUS} onClick={this.handleSubmitClick}>Submit</button>
             {
-              status == VALIDATING_STATUS && 
-              <span>Validation in progress...</span>
+              step > 0 &&
+              <button type="button" value="button" onClick={this.handleBackClick}>Back</button>
             }
+            <button type="button" value={nextOrSubmitName} disabled={status !== VALID_STATUS} onClick={nextOrSubmitFn}>
+              { status == VALIDATING_STATUS ? "Validating..." : nextOrSubmitName }
+            </button>
           </div>
         }</div>
       </div>
@@ -92,5 +95,10 @@ export default class FormSection extends React.Component {
 FormSection.propTypes = {
   formChildren: PropTypes.array.isRequired,
   status: PropTypes.string,
+  step: PropTypes.number,
+  stepsNumber: PropTypes.number,
+  handleInputChange: PropTypes.func,
+  handleBackClick: PropTypes.func,
+  handleNextClick: PropTypes.func,
   handleSubmitClick: PropTypes.func
 };
