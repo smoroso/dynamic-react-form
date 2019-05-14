@@ -4,7 +4,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import FormSection from "common/containers/FormSection";
 import {fetchFormDefinition} from "common/services/fetcherService";
-import {decorateChildDef} from "common/services/decoratorService";
 
 export default class BasicForm extends React.Component {
   constructor(props) {
@@ -17,9 +16,6 @@ export default class BasicForm extends React.Component {
 
   componentDidMount() {
     return fetchFormDefinition("basic")
-      .then((formDef) => {
-        return {children: formDef.children.map(decorateChildDef)};
-      })
       .then(this.setState.bind(this));
   }
 

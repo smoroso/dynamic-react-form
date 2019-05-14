@@ -6,12 +6,13 @@ import FormElement from "common/containers/FormElement";
 import {debounce, tap} from "common/utils";
 import {validateForRule} from "common/validations";
 import {INVALID_STATUS, PRISTINE_STATUS, VALID_STATUS, VALIDATING_STATUS } from "common/constants";
+import {decorateChildDef} from "common/services/decoratorService";
 
 export default class FormSection extends React.Component {
   constructor(props) {
     super(props);
 
-    const originalChildren = JSON.parse(JSON.stringify(props.formChildren));
+    const originalChildren = JSON.parse(JSON.stringify(props.formChildren.map(decorateChildDef)));
     this.state = {
       children: originalChildren,
       status: props.status || PRISTINE_STATUS
@@ -66,7 +67,7 @@ export default class FormSection extends React.Component {
     const { children, status } = this.state;
     const {step, stepsNumber} = this.props;
 
-    const nextOrSubmitName = step === (stepsNumber - 1) ? "Submit" : "Name";
+    const nextOrSubmitName = step === (stepsNumber - 1) ? "Submit" : "Next";
     const nextOrSubmitFn = step === (stepsNumber - 1) ? this.handleSubmitClick : this.handleNextClick;
 
     return (
