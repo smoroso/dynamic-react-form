@@ -4,37 +4,57 @@ import React from "react";
 import PropTypes from "prop-types";
 import Collapsible from "common/containers/Collapsible";
 import FormSection from "common/containers/FormSection";
+import {tap} from "common/utils";
+import {VALID_STATUS} from "common/constants";
+import {decorateStep} from "common/services/decoratorService";
 
 class NestedForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleBackClick = this.handleBackClick.bind(this);
-    this.handleNextClick = this.handleNextClick.bind(this);
+    const customSteps = this.props.steps.map(decorateStep);
+    this.state = {
+      steps: customSteps
+    };
   }
 
-  handleBackClick(/*event*/) {
+  handleBackClick(stepIndex, event, children) {
     // Only to the parent
     // eslint-disable-next-line no-console
-    console.log("What should I do?");
+    console.log("Back! Retreeeeeat!");
+    event.preventDefault();
+    const currentStep = {...this.state.steps[stepIndex], open: false, children: children};
+    const backStep = {...this.state.steps[stepIndex-1], clickable: true, open: true};
+    this.setState(prevState => ({
+      steps: tap(prevState.steps, (steps) => steps.splice(stepIndex-1, 2, backStep, currentStep))
+    }));
   }
 
-  handleNextClick(/*event*/) {
+  handleNextClick(stepIndex, event, children) {
     // Only to the parent
     // eslint-disable-next-line no-console
-    console.log("What should I do?");
+    console.log("Neeeeeeeeeeeext!");
+    // TODO: Some edge cases makes me lose data: Like toggling back instead of clicking on back, then toggling next.
+    // => i.e. Not using the back/next inputs
+    event.preventDefault();
+    const currentStep = {...this.state.steps[stepIndex], status: VALID_STATUS, open: false, children: children};
+    const nextStep = {...this.state.steps[stepIndex+1], clickable: true, open: true};
+    this.setState(prevState => ({
+      steps: tap(prevState.steps, (steps) => steps.splice(stepIndex, 2, currentStep, nextStep))
+    }));
   }
 
   render() {
-    const { steps } = this.props;
+    const { steps } = this.state;
     return (
       <div>
         {steps.length && steps.map((step, index) => (
-          <Collapsible key={index} title={step.name}>
+          <Collapsible key={index} title={step.name} clickable={step.clickable} open={step.open}>
             <FormSection
               formChildren={step.children}
-              handleBackClick={this.handleBackClick}
-              handleNextClick={this.handleNextClick}
+              status={step.status}
+              handleBackClick={this.handleBackClick.bind(this, index)}
+              handleNextClick={this.handleNextClick.bind(this, index)}
               step={index}
               stepsNumber={steps.length}
             />

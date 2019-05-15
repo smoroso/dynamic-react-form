@@ -3,7 +3,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FormElement from "common/containers/FormElement";
-import {debounce, tap} from "common/utils";
+import {tap} from "common/utils";
 import {validateForRule} from "common/validations";
 import {INVALID_STATUS, PRISTINE_STATUS, VALID_STATUS, VALIDATING_STATUS } from "common/constants";
 import {decorateChildDef} from "common/services/decoratorService";
@@ -23,23 +23,27 @@ export default class FormSection extends React.Component {
     this.handleNextClick = props.handleNextClick && props.handleNextClick.bind(this);
     this.handleResetClick = this.handleResetClick.bind(this, JSON.parse(JSON.stringify(originalChildren)));
     this.handleSubmitClick = (props.handleSubmitClick && props.handleSubmitClick.bind(this)) || this.handleSubmitClick.bind(this);
-    this.validateChildThenSection = debounce(this.validateChildThenSection.bind(this), 1000);
+    this.validateChildThenSection = this.validateChildThenSection.bind(this);
+  }
+
+  validateChild(child) {
+    return child.rules
+      .map((rule) => validateForRule(child, rule))
+      .filter((err) => err != null);
   }
 
   validateChildThenSection(childIndex, child) {
     // TODO: Make it asynchronous?
     const childClone = JSON.parse(JSON.stringify(child));
-    childClone.errors = childClone.rules
-      .map((rule) => validateForRule(childClone, rule))
-      .filter((err) => err != null);
-
+    childClone.errors = this.validateChild(childClone);
     childClone.status = childClone.errors.length === 0 ? VALID_STATUS : INVALID_STATUS;
-    const newStatus = [...this.state.children, childClone].every((child) => child.errors.length === 0) ? VALID_STATUS : INVALID_STATUS;
+    const updatedChildren = tap(this.state.children, (children) => children.splice(childIndex, 1, childClone));
+    const newStatus = updatedChildren.flatMap(this.validateChild).length === 0 ? VALID_STATUS : INVALID_STATUS;
 
-    this.setState(prevState => ({
-      children: tap(prevState.children, (children) => children.splice(childIndex, 1, childClone)),
+    this.setState({
+      children: updatedChildren,
       status: newStatus
-    }));
+    });
   }
 
   handleInputChange(childIndex, event) {
@@ -81,9 +85,9 @@ export default class FormSection extends React.Component {
             <button type="button" value="Reset" disabled={![VALID_STATUS, INVALID_STATUS].includes(status)} onClick={this.handleResetClick}>Reset</button>
             {
               step > 0 &&
-              <button type="button" value="button" onClick={this.handleBackClick}>Back</button>
+              <button type="button" value="button" onClick={(e) => this.handleBackClick(e, children)}>Back</button>
             }
-            <button type="button" value={nextOrSubmitName} disabled={status !== VALID_STATUS} onClick={nextOrSubmitFn}>
+            <button type="button" value={nextOrSubmitName} disabled={status !== VALID_STATUS} onClick={(e) => nextOrSubmitFn(e, children)}>
               { status == VALIDATING_STATUS ? "Validating..." : nextOrSubmitName }
             </button>
           </div>

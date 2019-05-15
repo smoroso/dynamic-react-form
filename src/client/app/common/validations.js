@@ -1,6 +1,6 @@
 "use strict";
 
-//----Rules----//
+//-----Rules-----//
 
 // eslint-disable-next-line no-unused-vars
 const requiredFn = (givenValue, _expected) => {
@@ -19,10 +19,12 @@ const createValidationObj = (validationFn, errorMessage) => {
 
 const getValidationFnsList = () => {
   const requiredObj = createValidationObj(requiredFn, "Required");
+  const emailObj = createValidationObj(patternFn, "Invalid Email");
   const patternObj = createValidationObj(patternFn, "Unmatching pattern");
 
   return {
     required: requiredObj,
+    email: emailObj,
     pattern: patternObj
   };
 };

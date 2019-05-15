@@ -13,10 +13,7 @@ const stringToDecoratorMapper = () => {
     return {[currentName]: inputDecorator, ...obj};
   }, {});
   return {
-    ...inputObjsDecorator,
-    reset: () => {},
-    next: () => {},
-    submit: () => {}
+    ...inputObjsDecorator
   };
 };
 
@@ -27,6 +24,12 @@ const decorateChildDef = (child, index, array) => {
   return decorator.call(this, child, index, array);
 };
 
+const decorateStep = (step, index) => {
+  const clickableAndOpen = index == 0 ? true : false;
+  return {status: PRISTINE_STATUS, clickable: clickableAndOpen, open: clickableAndOpen, ...step};
+};
+
 export {
-  decorateChildDef
+  decorateChildDef,
+  decorateStep
 };
