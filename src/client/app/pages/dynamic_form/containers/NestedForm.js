@@ -12,10 +12,17 @@ class NestedFormExample extends React.Component {
     this.state = {
       steps: []
     };
+
+    this.resetForm = this.resetForm.bind(this);
   }
 
-
   componentDidMount() {
+    return this.resetForm();
+  }
+
+  resetForm() {
+    this.setState({steps:[]});
+    
     return fetchFormDefinition("nested")
       .then(this.setState.bind(this));
   }
@@ -26,7 +33,7 @@ class NestedFormExample extends React.Component {
       <div>
         {
           steps.length && 
-          <NestedForm steps={steps}/>
+          <NestedForm steps={steps} handleResetClick={this.resetForm}/>
         }
       </div>
     );

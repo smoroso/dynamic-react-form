@@ -21,7 +21,7 @@ export default class FormSection extends React.Component {
     this.handleInputChange = (props.handleInputChange && props.handleInputChange.bind(this)) || this.handleInputChange.bind(this);
     this.handleBackClick = props.handleBackClick && props.handleBackClick.bind(this);
     this.handleNextClick = props.handleNextClick && props.handleNextClick.bind(this);
-    this.handleResetClick = this.handleResetClick.bind(this, JSON.parse(JSON.stringify(originalChildren)));
+    this.handleResetClick = props.handleResetClick || this.handleResetClick.bind(this, JSON.parse(JSON.stringify(originalChildren)));
     this.handleSubmitClick = (props.handleSubmitClick && props.handleSubmitClick.bind(this)) || this.handleSubmitClick.bind(this);
     this.validateChildThenSection = this.validateChildThenSection.bind(this);
   }
@@ -105,5 +105,6 @@ FormSection.propTypes = {
   handleInputChange: PropTypes.func,
   handleBackClick: PropTypes.func,
   handleNextClick: PropTypes.func,
-  handleSubmitClick: PropTypes.func
+  handleSubmitClick: PropTypes.func,
+  handleResetClick: PropTypes.func
 };
