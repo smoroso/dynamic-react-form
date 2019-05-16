@@ -2,11 +2,11 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import styles from "common/components/form_elements/inputs.scss";
 
 const Input = props => (
-  <div>
+  <div className={styles.inputWrapper}>
     <label>
-      <span>{props.label}</span>
       <input
         type={props.type}
         value={props.value}

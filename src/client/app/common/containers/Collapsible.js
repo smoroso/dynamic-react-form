@@ -2,6 +2,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import styles from "common/containers/collapsible.scss";
 
 class Collapsible extends React.Component {
   constructor(props){
@@ -26,14 +27,13 @@ class Collapsible extends React.Component {
   render() {
     const {open} = this.state;
     return (
-      <div>
-        <div onClick={this.togglePanel}>{this.props.title}</div>
-        Clickable: {this.props.clickable.toString()}
-        {open && 
-          <div>
-            {this.props.children}
-          </div>
-        }
+      <div className={styles.collapsible}>
+        <button
+          onClick={this.togglePanel}
+          disabled={!this.props.clickable}
+          data-active={open}
+        >{this.props.title}</button>
+        {open && this.props.children}
       </div>
     );
   }

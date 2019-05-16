@@ -7,6 +7,7 @@ import FormSection from "common/containers/FormSection";
 import {tap} from "common/utils";
 import {VALID_STATUS} from "common/constants";
 import {decorateStep} from "common/services/decoratorService";
+import styles from "common/containers/form.scss";
 
 class NestedForm extends React.Component {
   constructor(props) {
@@ -49,7 +50,7 @@ class NestedForm extends React.Component {
     const {handleResetClick} = this.props;
 
     return (
-      <div>
+      <div className={styles.form}>
         {steps.length && steps.map((step, index) => (
           <Collapsible key={index} title={step.name} clickable={step.clickable} open={step.open}>
             <FormSection

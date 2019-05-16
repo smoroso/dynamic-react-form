@@ -2,10 +2,10 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import styles from "common/components/form_elements/inputs.scss";
 
 const Select = props => (
-  <div>
-    <label htmlFor={props.name}>{props.label}</label>
+  <div className={styles.selectWrapper}>
     <select id={props.name} onChange={props.handleInputChange}>
       {props.values.map(v => (<option key={v.value} value={v.value}>{v.label}</option>))}
     </select>

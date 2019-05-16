@@ -6,14 +6,15 @@ import { Route, Link } from "react-router-dom";
 import InputsList from "pages/dynamic_form/containers/InputsList";
 import BasicForm from "pages/dynamic_form/containers/BasicForm";
 import NestedForm from "pages/dynamic_form/containers/NestedForm";
+import navStyles from "common/containers/navigation.scss";
 
 function List({ match }) {
   return (
     <div>
-      <ul>
-        <li><Link to={`${match.url}/inputs`}>Inputs List</Link></li>
-        <li><Link to={`${match.url}/basic`}>Basic</Link></li>
-        <li><Link to={`${match.url}/nested`}>Nested</Link></li>
+      <ul className={navStyles.navbar}>
+        <li><Link className={navStyles.button2} to={`${match.url}/inputs`}>Inputs List</Link></li>
+        <li><Link className={navStyles.button2} to={`${match.url}/basic`}>Basic</Link></li>
+        <li><Link className={navStyles.button2} to={`${match.url}/nested`}>Nested</Link></li>
       </ul>
 
       <Route path={`${match.path}/inputs`} component={InputsList} />

@@ -6,6 +6,7 @@ import DynamicFormsList from "pages/dynamic_form/containers/List";
 import StaticFormsList from "pages/static_form/containers/List";
 import Clock from "common/containers/Clock";
 import "pages/App.scss";
+import navStyles from "common/containers/navigation.scss";
 
 function App() {
   return (
@@ -27,15 +28,15 @@ function Home() {
 
 function Header() {
   return (
-    <ul>
+    <ul className={navStyles.navbar}>
       <li>
-        <Link to="/">Home</Link>
+        <Link to="/" className={navStyles.button1}>Home</Link>
       </li>
       <li>
-        <Link to="/static_form">Static Form</Link>
+        <Link to="/static_form" className={navStyles.button1}>Static Form</Link>
       </li>
       <li>
-        <Link to="/dynamic_form">Dynamic Form</Link>
+        <Link to="/dynamic_form" className={navStyles.button1}>Dynamic Form</Link>
       </li>
     </ul>
   );

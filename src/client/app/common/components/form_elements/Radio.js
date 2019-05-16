@@ -2,10 +2,10 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import styles from "common/components/form_elements/inputs.scss";
 
 const Radio = props => (
-  <div>
-    <span>{props.label}</span>
+  <div className={styles.radioWrapper}>
     {props.values.map(v => (
       <div key={v.value}>
         <input type={props.type} name={props.name} value={v.value} id={v.value} onChange={props.handleInputChange} />

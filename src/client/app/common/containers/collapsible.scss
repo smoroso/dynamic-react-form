@@ -1,0 +1,40 @@
+.collapsible {
+    margin-bottom: 20px;
+
+    > button {
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        border: 1px solid #3A89C4;
+        border-radius: 3px;
+        background: linear-gradient(135deg, #3CACAE -100%, #ECFFFD 100%);
+    
+        &:disabled{
+            background: linear-gradient(180deg, #FDFDFD 0%, #F9F9F9 100%);
+            cursor: not-allowed;
+            
+            &:after{
+                color: gray;
+            }
+        }
+
+        &:after{
+            color: #3CACAE;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+            content: '\25B2';    
+        }
+        &[data-active=true]:after{
+            content: '\25BC';
+        }
+    }
+
+    > div {
+        margin-top: 20px;
+    }
+}

@@ -1,0 +1,49 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+  
+    li {
+      margin: 0 20px;
+    }
+}
+
+//-----Buttons-----//
+@mixin navigation-button($color) {
+    display: inline-block;
+    padding: 0.5em 3em;
+    border:0.16em solid $color;
+    margin:0 0.3em 0.3em 0;
+    box-sizing: border-box;
+    text-decoration:none;
+    text-transform:uppercase;
+    font-family:'Roboto',sans-serif;
+    font-weight:400;
+    text-align:center;
+    transition: all 0.15s;
+    color: $color;
+
+    &:hover{
+        color: darken($color, 10%);
+        border-color: darken($color, 10%);
+    }
+
+    &:active{
+        color: darken($color, 20%);
+        border-color: darken($color, 20%);
+    }
+
+    @media all and (max-width:30em){
+        display:block;
+        margin:0.4em auto;
+    }
+}
+
+a.button1{
+  @include navigation-button(#fff);
+}
+
+a.button2{
+  @include navigation-button(#eee);
+}

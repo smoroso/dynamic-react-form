@@ -7,6 +7,7 @@ import {tap} from "common/utils";
 import {validateForRule} from "common/validations";
 import {INVALID_STATUS, PRISTINE_STATUS, VALID_STATUS, VALIDATING_STATUS } from "common/constants";
 import {decorateChildDef} from "common/services/decoratorService";
+import styles from "common/containers/form.scss";
 
 export default class FormSection extends React.Component {
   constructor(props) {
@@ -76,22 +77,25 @@ export default class FormSection extends React.Component {
 
     return (
       <div>
-        <h3>List of input types</h3>
-        <div>{children.length && 
+        {children.length && 
           <div>
-            {children.map((child, index) => (
-              <FormElement key={index} handleInputChange={this.handleInputChange.bind(this, index)} {...child} />
-            ))}
-            <button type="button" value="Reset" disabled={![VALID_STATUS, INVALID_STATUS].includes(status)} onClick={this.handleResetClick}>Reset</button>
-            {
-              step > 0 &&
-              <button type="button" value="button" onClick={(e) => this.handleBackClick(e, children)}>Back</button>
-            }
-            <button type="button" value={nextOrSubmitName} disabled={status !== VALID_STATUS} onClick={(e) => nextOrSubmitFn(e, children)}>
-              { status == VALIDATING_STATUS ? "Validating..." : nextOrSubmitName }
-            </button>
+            <div className={styles.inputsWrapper}>
+              {children.map((child, index) => (
+                <FormElement key={index} handleInputChange={this.handleInputChange.bind(this, index)} {...child} />
+              ))}
+            </div>
+            <div className={styles.btnWrapper}>
+              <button type="button" value="Reset" disabled={![VALID_STATUS, INVALID_STATUS].includes(status)} onClick={this.handleResetClick}>Reset</button>
+              {
+                step > 0 &&
+                <button type="button" value="button" onClick={(e) => this.handleBackClick(e, children)}>Back</button>
+              }
+              <button type="button" className={styles.submit} value={nextOrSubmitName} disabled={status !== VALID_STATUS} onClick={(e) => nextOrSubmitFn(e, children)}>
+                { status == VALIDATING_STATUS ? "Validating..." : nextOrSubmitName }
+              </button>
+            </div>
           </div>
-        }</div>
+        }
       </div>
     );
   }
