@@ -49,8 +49,9 @@ export default class FormSection extends React.Component {
 
   handleInputChange(childIndex, event) {
     const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const child = {...this.state.children[childIndex], value: value, status: VALIDATING_STATUS};
+    const child = {...this.state.children[childIndex]};
+    const value = this.getValueForChild(target, child);
+    const updatedChild = {...child, value: value, status: VALIDATING_STATUS};
     this.setState(prevState => ({
       children: tap(prevState.children, (children) => children.splice(childIndex, 1, child)),
       status: VALIDATING_STATUS
@@ -66,6 +67,10 @@ export default class FormSection extends React.Component {
     // eslint-disable-next-line no-console
     console.log("This is the default submit method if none was provided");
     event.preventDefault();
+  }
+
+  getValueForChild(target, child) {
+    if(child.type !== "checkbox" && child.type !== "radio") return target.value;
   }
 
   render() {
