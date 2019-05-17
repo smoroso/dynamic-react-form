@@ -47,7 +47,7 @@ class NestedForm extends React.Component {
 
   render() {
     const {steps} = this.state;
-    const {handleResetClick} = this.props;
+    const {handleResetClick, handleSubmitClick} = this.props;
 
     return (
       <div className={styles.form}>
@@ -59,6 +59,7 @@ class NestedForm extends React.Component {
               handleBackClick={this.handleBackClick.bind(this, index)}
               handleNextClick={this.handleNextClick.bind(this, index)}
               handleResetClick={handleResetClick}
+              handleSubmitClick={handleSubmitClick}
               step={index}
               stepsNumber={steps.length}
             />
@@ -71,7 +72,8 @@ class NestedForm extends React.Component {
 
 NestedForm.propTypes = {
   steps: PropTypes.array,
-  handleResetClick: PropTypes.func
+  handleResetClick: PropTypes.func,
+  handleSubmitClick: PropTypes.func
 };
 
 export default NestedForm;

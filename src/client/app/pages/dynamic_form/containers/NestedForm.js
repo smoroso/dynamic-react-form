@@ -14,6 +14,7 @@ class NestedFormExample extends React.Component {
     };
 
     this.resetForm = this.resetForm.bind(this);
+    this.submitForm = this.submitForm.bind(this);
   }
 
   componentDidMount() {
@@ -27,13 +28,19 @@ class NestedFormExample extends React.Component {
       .then(this.setState.bind(this));
   }
 
+  submitForm(e) {
+    e.preventDefault();
+    // eslint-disable-next-line no-console
+    console.log(this.state);
+  }
+
   render() {
     const { steps } = this.state;
     return (
       <div>
         {
           steps.length && 
-          <NestedForm steps={steps} handleResetClick={this.resetForm}/>
+          <NestedForm steps={steps} handleResetClick={this.resetForm} handleSubmitClick={this.submitForm}/>
         }
       </div>
     );
