@@ -17,6 +17,7 @@ class NestedForm extends React.Component {
     this.state = {
       steps: customSteps
     };
+    this.handleSubmitClick = this.handleSubmitClick.bind(this);
   }
 
   handleBackClick(stepIndex, event, children) {
@@ -45,9 +46,19 @@ class NestedForm extends React.Component {
     }));
   }
 
+  handleSubmitClick(e, children) {
+    e.preventDefault();
+    const currentStep = {...this.state.steps[this.state.steps.length - 1], status: VALID_STATUS, open: false, children: children};
+    this.setState(prevState => ({
+      steps: tap(prevState.steps, (steps) => steps.splice(-1, 1, currentStep))
+    }));
+    // eslint-disable-next-line no-console
+    console.log(this.state);
+  }
+
   render() {
     const {steps} = this.state;
-    const {handleResetClick, handleSubmitClick} = this.props;
+    const {handleResetClick} = this.props;
 
     return (
       <div className={styles.form}>
@@ -59,7 +70,7 @@ class NestedForm extends React.Component {
               handleBackClick={this.handleBackClick.bind(this, index)}
               handleNextClick={this.handleNextClick.bind(this, index)}
               handleResetClick={handleResetClick}
-              handleSubmitClick={handleSubmitClick}
+              handleSubmitClick={this.handleSubmitClick}
               step={index}
               stepsNumber={steps.length}
             />
