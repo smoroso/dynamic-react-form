@@ -3,9 +3,23 @@
         "name": "first_step",
         "label": "First Step",
         "children": [{
-            "name": "OrangeFan",
-            "label": "You like oranges",
-            "type": "checkbox"
+            "name": "Fruits",
+            "label": "Favorite fruits",
+            "type": "checkbox",
+            "values": [
+                {
+                    "label": "Orange",
+                    "value": "orange"
+                },
+                {
+                    "label": "Lemon",
+                    "value": "lemon"
+                },
+                {
+                    "label": "Tomato",
+                    "value": "tomato"
+                }
+            ]
         },{
             "name": "Date",
             "label": "Date",

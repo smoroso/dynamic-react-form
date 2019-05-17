@@ -4,18 +4,17 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Required from "common/components/form_elements/Required";
-import Checkbox from "common/components/form_elements/Checkbox";
+import CheckboxRadio from "common/components/form_elements/CheckboxRadio";
 import Input from "common/components/form_elements/Input";
-import Radio from "common/components/form_elements/Radio";
 import Select from "common/components/form_elements/Select";
 
 const stringToComponentMapper = () => {
   return {
-    checkbox: Checkbox,
+    checkbox: CheckboxRadio,
+    radio: CheckboxRadio,
     date: Input,
     email: Input,
     text: Input,
-    radio: Radio,
     select: Select
   };
 };

@@ -52,7 +52,7 @@ class NestedForm extends React.Component {
     return (
       <div className={styles.form}>
         {steps.length && steps.map((step, index) => (
-          <Collapsible key={index} title={step.name} clickable={step.clickable} open={step.open}>
+          <Collapsible key={index} title={step.label} clickable={step.clickable} open={step.open}>
             <FormSection
               formChildren={step.children}
               status={step.status}
