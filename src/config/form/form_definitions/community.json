@@ -1,0 +1,35 @@
+{
+    "steps": [{
+        "name": "Community",
+        "label": "Community",
+        "children": [{
+            "name": "name",
+            "label": "Community Name",
+            "type": "text",
+            "rules": [
+                {"required": true}
+            ]
+        },{
+            "name": "channel",
+            "label": "Community Channel",
+            "type": "text",
+            "rules": [
+                {"required": true}
+            ]
+        },{
+            "name": "identifier",
+            "label": "Community Identifier",
+            "type": "text",
+            "rules": [
+                {"required": true}
+            ]
+        },{
+            "name": "ip_range",
+            "label": "IP Range",
+            "type": "text",
+            "rules": [
+                {"required": true}
+            ]
+        }]
+    }]
+}

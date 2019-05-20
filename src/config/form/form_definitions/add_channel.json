@@ -1,14 +1,151 @@
 {
-    "sections": [
+  "steps": [{
+      "name": "basic_information",
+      "label": "Basic Information",
+      "children": [{
+          "name": "name",
+          "label": "Name of the channel",
+          "type": "text",
+          "rules": [
+            {"required": true}
+          ]
+      },
       {
-        "name": "Section 1",
-        "fields": [
-          {
-            "name": "firstName",
-            "label": "First Name",
-            "component": "input"
-          }
+        "name": "qualities",
+        "label": "Please Select Qualities",
+        "type": "checkbox",
+        "values": [
+            {
+                "label": "SD",
+                "value": "sd"
+            },
+            {
+                "label": "HD",
+                "value": "hd"
+            },
+            {
+                "label": "FHD",
+                "value": "FHD"
+            },
+            {
+                "label": "UHD",
+                "value": "UHD"
+            }
+        ],
+        "rules": [
+          {"required": true}
+        ]
+      },
+      {
+        "name": "language",
+        "label": "Language of the channel",
+        "type": "text",
+        "rules": [
+          {"required": true}
+        ]
+      },
+      {
+        "name": "country_version",
+        "label": "Country Version",
+        "type": "text",
+        "rules": [
+          {"required": true}
+        ]
+      },
+      {
+        "name": "multiple_audio",
+        "label": "MULTIPLE AUDIO",
+        "type": "radio",
+        "values": [
+            {
+                "label": "Yes",
+                "value": "yes"
+            },
+            {
+                "label": "No",
+                "value": "No"
+            }
+        ],
+        "rules": [
+          {"required": true}
         ]
       }
     ]
-  }
+  },
+  {
+    "name": "technical_data",
+    "label": "Technical Data",
+    "children": [{
+      "name": "signal_type",
+      "label": "Please Select the signal type",
+      "type": "radio",
+      "values": [
+          {
+              "label": "Multicast IP",
+              "value": "multicast_ip"
+          },
+          {
+              "label": "Satellite",
+              "value": "satellite"
+          },
+          {
+              "label": "IP",
+              "value": "ip"
+          }
+      ],
+      "rules": [
+        {"required": true}
+      ]
+    },
+    {
+      "name": "ip_port",
+      "label": "IP & Port",
+      "type": "text",
+      "rules": [
+        {"required": true}
+      ]
+    },
+    {
+      "name": "provider",
+      "label": "Provider",
+      "type": "text",
+      "rules": [
+        {"required": true}
+      ]
+    },
+    {
+      "name": "contact_fullname",
+      "label": "Contact Full Name",
+      "type": "text",
+      "rules": [
+        {"required": true}
+      ]
+    },
+    {
+      "name": "phone",
+      "label": "Phone",
+      "type": "text",
+      "rules": [
+        {"required": true},
+        {"pattern": "^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$"}
+      ]
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "text",
+      "rules": [
+        {"required": true},
+        {"email": "^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4})?$"}
+      ]
+    },
+    {
+      "name": "epg_source",
+      "label": "EPG Source",
+      "type": "text",
+      "rules": [
+        {"required": true}
+      ]
+    }]
+  }]
+}

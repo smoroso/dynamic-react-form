@@ -22,10 +22,17 @@ class Form extends React.Component {
     return this.resetForm(match.params.id);
   }
 
-  resetForm() {
+  // Route switch does not retrigger componentDidMount
+  componentDidUpdate(prevProps/*, prevState*/) {
+    const {match} = this.props;
+    if(prevProps.match.params.id === match.params.id) return null;
+    return this.resetForm(match.params.id);
+  }
+
+  resetForm(formId) {
     this.setState({steps:[]});
     
-    return fetchFormDefinition("nested")
+    return fetchFormDefinition(formId)
       .then(this.setState.bind(this));
   }
 

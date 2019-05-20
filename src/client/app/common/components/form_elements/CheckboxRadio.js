@@ -4,8 +4,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "common/components/form_elements/inputs.scss";
 
-const Radio = props => (
-  <div className={styles.radioWrapper}>
+const CheckboxRadio = props => (
+  <div className={styles.checkboxRadioWrapper}>
     {props.values.map(v => (
       <div key={v.value}>
         <input type={props.type} name={props.name} value={v.value} id={v.value} onChange={props.handleInputChange} />
@@ -15,7 +15,7 @@ const Radio = props => (
   </div>
 );
 
-Radio.propTypes = {
+CheckboxRadio.propTypes = {
   type: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   label: PropTypes.string,
@@ -23,4 +23,4 @@ Radio.propTypes = {
   values: PropTypes.array
 };
 
-export default Radio;
+export default CheckboxRadio;
