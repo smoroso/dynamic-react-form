@@ -4,7 +4,7 @@ import formService from "./form_service.js";
 describe("API Calls", function() {
   describe("fetching form", function() {
     it("returns a valid object when the json exists", function() {
-      const definition = formService.getFormDefinition("create_channel");
+      const definition = formService.getFormDefinition("add_channel");
       expect(typeof definition).to.equal("object");
     });
 

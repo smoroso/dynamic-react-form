@@ -19,7 +19,7 @@ describe("API Calls", function() {
   describe("form definitions", function() {
     it("returns a valid form definition for valid endpoint", function(done) {
       chai.request(server.listen())
-        .get("/api/getFormDefinition/create_channel")
+        .get("/api/getFormDefinition/add_channel")
         .end(function(err, res) {
           expect(res).to.have.status(200);
           expect(res).to.be.json;
