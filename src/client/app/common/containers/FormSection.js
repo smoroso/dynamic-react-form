@@ -47,15 +47,28 @@ export default class FormSection extends React.Component {
     });
   }
 
+  toggleChildValue(child, value) {
+    const valueIndex = child.value.indexOf(value);
+    if(valueIndex >= 0) {
+      child.value.splice(valueIndex, 1);
+    } else {
+      child.value.push(value);
+    }
+    return child;
+  }
+
+  updateChild(child, target) {
+    if(["checkbox"].includes(child.type)) return this.toggleChildValue({...child}, target.value);
+    return {...child, value: target.value, status: VALIDATING_STATUS};
+  }
+
   handleInputChange(childIndex, event) {
     const target = event.target;
-    const child = {...this.state.children[childIndex]};
-    const value = this.getValueForChild(target, child);
-    const updatedChild = {...child, value: value, status: VALIDATING_STATUS};
+    const updatedChild = this.updateChild(this.state.children[childIndex], target);
     this.setState(prevState => ({
-      children: tap(prevState.children, (children) => children.splice(childIndex, 1, child)),
+      children: tap(prevState.children, (children) => children.splice(childIndex, 1, updatedChild)),
       status: VALIDATING_STATUS
-    }), this.validateChildThenSection.bind(this, childIndex, child));
+    }), this.validateChildThenSection.bind(this, childIndex, updatedChild));
   }
 
   handleResetClick(originalChildren, event) {
@@ -67,10 +80,6 @@ export default class FormSection extends React.Component {
     // eslint-disable-next-line no-console
     console.log("This is the default submit method if none was provided");
     event.preventDefault();
-  }
-
-  getValueForChild(target, child) {
-    if(child.type !== "checkbox" && child.type !== "radio") return target.value;
   }
 
   render() {
